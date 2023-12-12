@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marmaris Store</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-3">
+    <div class="row justify-content-between align-items-center">
+        <div class="col">
+            <h1>Marmaris Store</h1>
+        </div>
+        <div class="col">
+            <form action="{{ url_for('search') }}" method="get" class="form-inline justify-content-end">
+                <input class="form-control form-control-lg w-75" type="search" name="query" placeholder="Search products...">
+                <button class="btn btn-outline-success btn-lg ml-2" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+            <img class="product-image index-search-image" src="{{ url_for('static', filename='images/' + product.image_file) }}" class="card-img-top product-image" alt="{{ product.description }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.description }}</h5>
+                <p class="card-text">${{ '%.2f' | format(product.price) }}</p>
+                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+
+
+</body>
+</html>
